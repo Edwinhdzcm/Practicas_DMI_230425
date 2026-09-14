@@ -67,11 +67,21 @@ class _CounterFunctionScreenState extends State<CounterFunctionScreen> {
             ],
           ),
         ),
-
+          
         // Botones para sumar y restar
         floatingActionButton: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+              FloatingActionButton(
+              shape: const StadiumBorder(),
+              onPressed: () {
+                setState(() {
+                  clickCounter = 0;
+                });
+              },
+              child: const Icon(Icons.refresh_outlined),
+            ),
+          
             // Botón para sumar
             FloatingActionButton(
               onPressed: () {
@@ -86,6 +96,7 @@ class _CounterFunctionScreenState extends State<CounterFunctionScreen> {
 
             // Botón para restar
             FloatingActionButton(
+              shape: const 
               onPressed: () {
                 setState(() {
                   clickCounter--;
