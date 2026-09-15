@@ -66,6 +66,10 @@ flutter run
 
 
 ## Capturas de pantalla
+### Diagrama Interactivo: 
+Se muestra una imagen del diagrama interactivo el cual es de la aplicacion con flutter.
+
+![Diagrama](imagenes/img4.png)
 
 ### Opción 1: 
 En la primer captura se visualiza el color azul en el numero ya que pertenece a los numeros neutros
