@@ -71,8 +71,7 @@ Se muestra una imagen del diagrama interactivo el cual es de la aplicacion con f
 
 ![Diagrama](imagenes/img4.png)
 
-## URL: 
-file:///C:/Users/edwin/Practicas_DMI_230425/.archify/arquitectura_flutter_movil.html
+[Ver diagrama interactivo](file:///C:/Users/edwin/Practicas_DMI_230425/.archify/arquitectura_flutter_movil.html)
 
 ### Opción 1: 
 En la primer captura se visualiza el color azul en el numero ya que pertenece a los numeros neutros
