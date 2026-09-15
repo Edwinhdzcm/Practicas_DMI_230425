@@ -63,43 +63,26 @@ flutter pub get
 flutter run
 ```
 
-Si deseas abrirlo en un emulador o dispositivo conectado, asegúrate de tener Flutter configurado correctamente en tu entorno.
+
 
 ## Capturas de pantalla
 
-Puedes agregar imágenes al README con enlaces relativos o URLs externas.
+### Opción 1: 
+En la primer captura se visualiza el color azul en el numero ya que pertenece a los numeros neutros
 
-### Opción 1: imágenes dentro de la carpeta del proyecto
+![Numero neutro](imagenes/img.png)
 
-Crea una carpeta como esta:
+### Opción 2:
+En la segunda captura se visualiza el color verde en el numero ya que pertenece a los numeros positivos
 
-```text
-assets/images/
-```
+![Numero positivo](imagenes/img2.png)
 
-Y luego inserta imágenes así:
+### Opción 3:
+En la segunda captura se visualiza el color rojo en el numero ya que pertenece a los numeros negativos
 
-```markdown
-![Pantalla principal](assets/images/pantalla_principal.png)
-![Contador en funcionamiento](assets/images/contador.png)
-```
-
-### Opción 2: imágenes desde una URL
-
-```markdown
-![Vista previa](https://via.placeholder.com/800x500.png?text=Hello+World+App)
-```
-
-### Ejemplo visual
-
-```markdown
-![Vista de la aplicación](https://via.placeholder.com/800x500.png?text=Counter+Screen)
-```
+![Numero negativo](imagenes/img3.png)
 
 ## Resumen
 
 La carpeta `hello_world_app` es una práctica inicial de Flutter que permite comprender cómo se construye una app móvil desde cero, con una interfaz interactiva y manejo de estados. Es una base ideal para comenzar a trabajar con aplicaciones móviles más complejas en el futuro.
 
----
-
-Si quieres, puedo ayudarte a crear también una versión más formal del README para entregar en clase o una versión más visual con una tabla de contenido y secciones adicionales.
