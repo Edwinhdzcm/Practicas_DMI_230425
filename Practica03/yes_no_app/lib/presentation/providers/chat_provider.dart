@@ -11,18 +11,17 @@ class ChatProvider extends ChangeNotifier {
     Message(text: 'Ya regresaste del trabajo?', fromWho: FromWho.me),
   ];
 
-  Future<void> sendMessage(String text) async {
-    if (text.isEmpty) return;
+   Future<void> sendMessage(String text) async {
+    final cleanText = text.trim();
+    if (cleanText.isEmpty) return;
 
-    final newMessage = Message(text: text, fromWho: FromWho.me);
-    messageList.add(newMessage);
-
-    if (text.endsWith('?')) {
-      herReply();
-    }
-
+    messageList.add(Message(text: cleanText, fromWho: FromWho.me));
     notifyListeners();
     moveScrollToBottom();
+
+    if (cleanText.endsWith('?')) {
+      await herReply();
+    }
   }
 
   Future<void> herReply() async {
