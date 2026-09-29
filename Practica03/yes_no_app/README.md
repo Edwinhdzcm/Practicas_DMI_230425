@@ -70,6 +70,12 @@ Crea la carpeta `docs/images/`, guarda ahí tus capturas y actualiza los nombres
 
 ![Icono de la aplicación](/Practica03/yes_no_app/img/img01.png)
 ![Conversación con respuesta](/Practica03/yes_no_app/img/img02.png)
+### Diagrama Interactivo: 
+Se muestra una imagen del diagrama interactivo el cual es de la aplicacion con flutter.
+
+[Abrir diagrama interactivo](https://edwinhdzcm.github.io/Practicas_DMI_230425//Practica03/archify/arquitectura_yes_no_app.html)
+
+[![Vista previa del diagrama](imagenes/image.png)](https://edwinhdzcm.github.io/Practicas_DMI_230425/Practica03/archify/arquitectura_yes_no_app.html)
 
 ## Icono de la aplicación
 
