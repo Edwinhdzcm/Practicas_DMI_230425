@@ -70,7 +70,7 @@ Se muestra una imagen del diagrama interactivo el cual es de la aplicacion con f
 
 [Abrir diagrama interactivo](https://edwinhdzcm.github.io/Practicas_DMI_230425/Practica%2002/archify/arquitectura_flutter_movil.html)
 
-[![Vista previa del diagrama](imagenes/img4.png)](https://edwinhdzcm.github.io/Practicas_DMI_230425/Practica%2002/archify/arquitectura_flutter_movil.html)
+[![Vista previa del diagrama](imagenes/image.png)](https://edwinhdzcm.github.io/Practicas_DMI_230425/Practica%2002/archify/arquitectura_flutter_movil.html)
 
 
 
