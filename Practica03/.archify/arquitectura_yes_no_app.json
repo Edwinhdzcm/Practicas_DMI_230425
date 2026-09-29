@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Arquitectura de yes_no_app",
+    "visual_preset": "blueprint",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "all",
+      "entries": {
+        "frontend": { "label": "Frontend", "visible": true },
+        "backend": { "label": "Backend", "visible": true },
+        "cloud": { "label": "Cloud", "visible": true },
+        "external": { "label": "External", "visible": true },
+        "security": { "label": "Security", "visible": true }
+      }
+    },
+    "views": [
+      { "id": "respuesta", "label": "01 Flujo de respuesta", "focus": ["chat-provider", "get-answer", "yesno-api", "model", "message"], "note": "ChatProvider solicita la respuesta, la API devuelve JSON y el modelo lo convierte en Message para el chat." },
+      { "id": "mensajes", "label": "02 Mensajes", "focus": ["chat-screen", "message"], "note": "Message guarda texto, remitente, hora e imagen; HerMessageBubble puede mostrar el GIF." }
+    ],
+    "viewBox": [2320, 1120]
+  },
+  "components": [
+    { "id": "main", "type": "frontend", "label": "main.dart", "sublabel": "MyApp · MultiProvider · AppTheme", "tag": "lib/main.dart", "pos": [70, 245], "size": [330, 104] },
+    { "id": "chat-screen", "type": "frontend", "label": "ChatScreen", "sublabel": "Burbujas y MessageFieldBox", "tag": "lib/presentation/screens/chat/chat_screen.dart", "pos": [510, 245], "size": [330, 104] },
+    { "id": "chat-provider", "type": "backend", "label": "ChatProvider", "sublabel": "ChangeNotifier · gestiona el chat", "tag": "lib/presentation/providers/chat_provider.dart", "pos": [950, 245], "size": [330, 104] },
+    { "id": "get-answer", "type": "backend", "label": "GetYesNoAnswer", "sublabel": "Dio · force 40/40/20", "tag": "lib/config/helpers/get_yes_no_answer.dart", "pos": [1390, 245], "size": [330, 104] },
+    { "id": "yesno-api", "type": "external", "label": "yesno.wtf/api", "sublabel": "Servicio externo", "tag": "https://yesno.wtf/api", "pos": [1830, 245], "size": [330, 104] },
+    { "id": "model", "type": "backend", "label": "YesNoModel", "sublabel": "JSON a modelo", "tag": "lib/infrastructure/models/yes_no_model.dart", "pos": [1390, 545], "size": [330, 104] },
+    { "id": "message", "type": "backend", "label": "Message", "sublabel": "Texto · remitente · hora · imagen", "tag": "lib/domain/entities/message.dart", "pos": [1830, 545], "size": [330, 104] },
+    { "id": "pubspec", "type": "cloud", "label": "pubspec.yaml", "sublabel": "Dependencias Flutter", "pos": [110, 745], "size": [390, 112] },
+    { "id": "icon-asset", "type": "cloud", "label": "assets/icons.jpg", "sublabel": "Ícono personalizado de la app", "pos": [110, 905], "size": [390, 88] },
+    { "id": "platforms", "type": "cloud", "label": "Targets Flutter", "sublabel": "android/ · ios/ · linux/ · macos/ · web/ · windows/ · build/", "tag": "Sin app-debug.apk", "pos": [700, 745], "size": [430, 112] },
+    { "id": "widget-test", "type": "security", "label": "Widget test", "sublabel": "test/widget_test.dart", "pos": [1300, 745], "size": [350, 90] },
+    { "id": "analysis", "type": "security", "label": "Flutter lints", "sublabel": "analysis_options.yaml", "pos": [1300, 895], "size": [350, 90] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Dependencias y recursos", "wraps": ["pubspec", "icon-asset"], "pad": 30 },
+    { "kind": "region", "label": "Plataformas", "wraps": ["platforms"], "pad": 30 },
+    { "kind": "security-group", "label": "Calidad", "wraps": ["widget-test", "analysis"], "pad": 30 }
+  ],
+  "connections": [
+    { "from": "main", "to": "chat-screen", "label": "inicia", "route": "straight", "fromSide": "right", "toSide": "left" },
+    { "from": "chat-screen", "to": "chat-provider", "label": "sendMessage", "route": "straight", "fromSide": "right", "toSide": "left" },
+    { "from": "chat-provider", "to": "get-answer", "label": "termina en ?", "route": "straight", "fromSide": "right", "toSide": "left" },
+    { "from": "get-answer", "to": "yesno-api", "label": "GET", "route": "straight", "fromSide": "right", "toSide": "left" },
+    { "from": "get-answer", "to": "model", "label": "JSON", "route": "straight", "fromSide": "bottom", "toSide": "top", "labelDy": 24 },
+    { "from": "model", "to": "message", "label": "toMessageEntity", "route": "straight", "fromSide": "right", "toSide": "left" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Flujo de respuesta", "items": ["Si el mensaje termina en ?, ChatProvider pide la respuesta a GetYesNoAnswer, que consulta yesno.wtf con Dio; YesNoModel la convierte en Message y el provider la agrega al chat.", "Dependencias: provider ^6.1.5+1, dio ^5.11.1, intl ^0.20.3 y flutter_launcher_icons."] },
+    { "dot": "emerald", "title": "Mensajes", "items": ["Message guarda texto, remitente, hora e imagen opcional; las burbujas muestran texto y hora, y HerMessageBubble muestra el GIF."] },
+    { "dot": "violet", "title": "Sin backend propio", "items": ["La app consume yesno.wtf como servicio externo."] }
+  ]
+}

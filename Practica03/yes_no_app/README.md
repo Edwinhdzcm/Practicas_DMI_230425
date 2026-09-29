@@ -1,3 +1,4 @@
+
 # Práctica 03: yes_no_app
 
 Aplicación de chat hecha con Flutter. El usuario puede enviar mensajes y, cuando uno termina en signo de interrogación (`?`), la aplicación consulta la API [yesno.wtf](https://yesno.wtf/api) y muestra una respuesta (`Sí`, `No` o `Tal vez`) junto con la imagen recibida.
