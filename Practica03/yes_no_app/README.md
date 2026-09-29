@@ -75,7 +75,7 @@ Se muestra una imagen del diagrama interactivo el cual es de la aplicacion con f
 
 [Abrir diagrama interactivo](https://edwinhdzcm.github.io/Practicas_DMI_230425//Practica03/archify/arquitectura_yes_no_app.html)
 
-[![Vista previa del diagrama](imagenes/image.png)](https://edwinhdzcm.github.io/Practicas_DMI_230425/Practica03/archify/arquitectura_yes_no_app.html)
+[![Vista previa del diagrama](/Practica03/yes_no_app/img/img3.png)](https://edwinhdzcm.github.io/Practicas_DMI_230425/Practica03/archify/arquitectura_yes_no_app.html)
 
 ## Icono de la aplicación
 
