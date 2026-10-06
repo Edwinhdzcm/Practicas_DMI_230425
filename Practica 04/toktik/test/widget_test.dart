@@ -7,24 +7,31 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:toktik/main.dart';
+import 'package:provider/provider.dart';
+import 'package:toktik/domain/entities/video_post.dart';
+import 'package:toktik/domain/repositories/video_posts_repository.dart';
+import 'package:toktik/presentation/provider/discover_provider.dart';
+import 'package:toktik/presentation/screens/discover/discover_screen.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('Shows the video feed loading state', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      ChangeNotifierProvider(
+        create: (_) => DiscoverProvider(
+          videosRepositoy: _EmptyVideoPostRepository(),
+        ),
+        child: const MaterialApp(home: DiscoverScreen()),
+      ),
+    );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });
+}
+
+class _EmptyVideoPostRepository implements VideoPostRepository {
+  @override
+  Future<List<VideoPost>> getFavoriteVideosByUser(String userID) async => [];
+
+  @override
+  Future<List<VideoPost>> getTrendingVideosByPage(int page) async => [];
 }
