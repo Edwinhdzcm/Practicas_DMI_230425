@@ -194,8 +194,8 @@ audio del jingle puede requerir activar el altavoz del visor.
 
 ## Diagrama de la app
 
-[Abrir diagrama de Providers](https://edwinhdzcm.github.io/Practicas_DMI_230425/Practica%2004/architecture-toktik-20261020-154212/toktik-providers.html)
-[Abrir diagrama general](https://edwinhdzcm.github.io/Practicas_DMI_230425/Practica%2004/architecture-toktik-20261020-154212/toktik-general.html)
+[Abrir diagrama de Providers](https://edwinhdzcm.github.io/Practicas_DMI_230425/Practica%2004/archify/arquitectura_toktik_providers.html)
+[Abrir diagrama de Repositorios y Datasources](https://edwinhdzcm.github.io/Practicas_DMI_230425/Practica%2004/archify/arquitectura_toktik_datasources.html)
 
 ## Créditos
 
