@@ -1,57 +1,128 @@
-# Toktik - A Flutter Project
+# Práctica 04 — TokTik
 
-## Importante:
-Los videos no están incluídos en el repositorio, debido a que son muy pesados y GitHub no lo permite.
+Aplicación móvil desarrollada con **Flutter** como práctica de Desarrollo Móvil Integral.
+TokTik presenta videos en formato vertical y permite explorar contenido local y videos
+obtenidos de servicios en línea. La aplicación utiliza **Provider** para administrar el
+estado y adapta su apariencia a distintas temporadas del año.
 
-Pueden descargar 8 videos de aquí:
-[Pexels Free Videos](https://www.pexels.com/search/videos/vertical/)
+> **Importante:** los videos locales no están incluidos en el repositorio por su tamaño.
+> Para ver el contenido de **Discover**, coloca los archivos indicados en
+> [`assets/videos/`](assets/videos/). La sección **For You** requiere conexión a internet.
 
-Renombren esos videos así, ya que es lo que se encuentra en nuestro data source.
-```
-1.mp4
-2.mp4
-3.mp4
-4.mp4
-5.mp4
-6.mp4
-7.mp4
-8.mp4
-```
+## Evidencias de la práctica
 
+Agrega los enlaces de tus videos de demostración cuando estén disponibles. Puedes subirlos
+a YouTube, Google Drive u otro servicio y pegar aquí el enlace con permisos de visualización.
 
-## Funcionalidades agregadas
-Secciones Discover / For You / Favorites con desplazamiento lateral, temas por temporada,
-mute, likes persistentes, descripcion con "... mas" y videos de YouTube, Dailymotion y Vimeo.
-Arquitectura y diagramas: [docs/ARQUITECTURA.md](docs/ARQUITECTURA.md).
+| Evidencia | Enlace |
+| --- | --- |
+| Video de presentación y recorrido general | **PENDIENTE: pega aquí el enlace del video** |
+| Video de las secciones y reproducción de contenido | **PENDIENTE: pega aquí el enlace del video** |
+| Video de los temas por temporada y persistencia | **PENDIENTE: pega aquí el enlace del video** |
 
-```
+### Demo interactiva en Appetize.io
+
+**Enlace público de la aplicación:** **PENDIENTE: pega aquí tu enlace de Appetize.io**
+
+Para crear o actualizar el enlace, consulta [Publicar la app en Appetize.io](#publicar-la-app-en-appetizeio).
+
+## Objetivo
+
+Crear una aplicación de reproducción de videos verticales que practique el uso de widgets,
+administración de estado con Provider, navegación entre secciones y personalización de la
+interfaz. TokTik amplía el ejercicio con favoritos persistentes, fuentes de video remotas y
+temas que cambian según la temporada.
+
+## Funcionalidades
+
+- **Discover:** feed vertical de videos locales con reproducción, descripción, contador de
+  vistas y controles de interacción.
+- **For You:** feed vertical que obtiene videos de YouTube, Dailymotion y Vimeo. Requiere
+  internet; si una fuente falla, la pantalla permite reintentar la carga.
+- **Favorites:** colección de videos marcados con “me gusta”. Los likes y los favoritos se
+  conservan al cerrar y volver a abrir la aplicación.
+- **Navegación lateral:** cambia entre Discover, For You y Favorites deslizando la pantalla
+  o seleccionando una sección en la barra superior.
+- **Reproducción:** permite silenciar o activar el audio. El estado de silencio se recuerda
+  entre sesiones; en web el audio inicia silenciado por las restricciones de reproducción
+  automática del navegador.
+- **Descripción expandible:** las descripciones largas se pueden desplegar desde el control
+  «… más».
+- **Temas por temporada:** la paleta, tipografía, iconos y jingle cambian entre Normal,
+  Halloween, Navidad y San Valentín.
+- **Persistencia local:** preferencias, likes, favoritos y ajustes se guardan con
+  `SharedPreferences`.
+
+## Tecnologías y arquitectura
+
+- Flutter y Dart
+- Provider (`ChangeNotifier`) para el estado de la interfaz
+- `video_player` para reproducir videos
+- `SharedPreferences` para conservar preferencias y favoritos
+- `youtube_explode_dart` y datasources propios para resolver videos remotos
+- `audioplayers` para reproducir los jingles de temporada
+
+El código está organizado por responsabilidades:
+
+| Capa | Ubicación | Responsabilidad |
+| --- | --- | --- |
+| Configuración | `lib/config/` | Temas, formatos, iconos y reproducción de audio |
+| Dominio | `lib/domain/` | Entidades y contratos de repositorios y datasources |
+| Infraestructura | `lib/infrastructure/` | Datasources, modelos, mappers y repositorios |
+| Presentación | `lib/presentation/` | Providers, pantallas y widgets de la interfaz |
+
+La composición de dependencias se realiza en `lib/main.dart`: se crean los datasources,
+se inyectan en los repositorios y estos se proporcionan a la interfaz con `MultiProvider`.
+Para consultar los diagramas y los flujos principales, revisa
+[`docs/ARQUITECTURA.md`](docs/ARQUITECTURA.md).
+
+## Requisitos y ejecución
+
+Necesitas tener instalado Flutter y un emulador, dispositivo o navegador compatible.
+
+```powershell
+cd "Practica 04\toktik"
 flutter pub get
 flutter run
 ```
 
-### Temas por temporada
-Se eligen con la fecha del dispositivo. Cada temporada empieza 10 dias antes de su
-celebracion: Halloween 21 oct-2 nov, Navidad 15 dic-6 ene, San Valentin (amor y amistad)
-4-15 feb; Normal el resto del ano. Al cambiar la temporada se actualizan el icono del
-launcher, el splash y el tema de la app. Para probar cualquiera sin esperar la fecha,
-toca el icono de paleta arriba a la derecha; "Automatico" vuelve a la fecha. Cada tema
-cambia tipografia, paleta, iconos y un jingle corto (audios originales).
+### Videos de prueba
 
-> **Nota sobre `flutter run`:** al elegir una temporada distinta de Normal se
-> desactiva el icono `.NormalIcon` del launcher, y `flutter run` siempre intenta
-> abrir justo ese alias, por lo que fallaba con "Activity class does not exist".
-> En builds de depuracion la app ahora mantiene `.NormalIcon` habilitado (por eso
-> durante la temporada pueden verse dos iconos "toktik" en el launcher). En
-> release solo queda el icono de la temporada activa.
+Los siguientes videos se incluyen como **material de prueba** para mostrar ejemplos de
+contenido y probar la reproducción:
 
-Los videos de "For You" necesitan internet. El HLS de Dailymotion no se reproduce en web;
-prueba en Android/iOS.
+#### Video de prueba 1
 
-### Probar una temporada cambiando la fecha
-La forma recomendada es tocar el icono de paleta y elegir la temporada: el splash, el tema
-y el icono del launcher cambian al instante sin modificar el reloj.
+[Abrir o descargar video de prueba 1](Practica04/videos/1.mp4)
 
-Tambien puedes cambiar la fecha del emulador Android desde una terminal (requiere `adb`):
+#### Video de prueba 2
+
+[Abrir o descargar video de prueba 2](Practica04/videos/2.mp4)
+
+
+
+## Temas por temporada
+
+La temporada automática se determina usando la fecha del dispositivo. Cada periodo inicia
+diez días antes de la celebración:
+
+| Temporada | Periodo automático |
+| --- | --- |
+| Halloween | 21 de octubre – 2 de noviembre |
+| Navidad | 15 de diciembre – 6 de enero |
+| San Valentín | 4 – 15 de febrero |
+| Normal | Resto del año |
+
+Para probar un tema sin cambiar la fecha, abre el selector con el icono de paleta en la
+parte superior y elige una temporada. La opción **Automático** vuelve a usar la fecha del
+dispositivo. Al cambiar de temporada se actualizan el tema y el jingle; el icono del
+launcher también se sincroniza al iniciar la aplicación.
+
+### Probar cambiando la fecha del emulador Android
+
+Es más sencillo probar los temas desde el selector de la aplicación. Si necesitas verificar
+el comportamiento asociado a la fecha del dispositivo, puedes cambiarla en un emulador
+Android con `adb`:
 
 ```powershell
 adb root
@@ -60,79 +131,73 @@ adb shell settings put global auto_time 0
 adb shell date 102115002026.00
 ```
 
-Reinicia la app (o desinstalala/instalala si el launcher no refresca el icono) para ver el
-splash y el icono de Halloween. Para volver a la fecha automatica:
+Reinicia la aplicación para comprobar el splash y el icono del launcher. Para restaurar la
+fecha automática:
 
 ```powershell
 adb shell settings put global auto_time 1
 ```
 
-En un dispositivo fisico normalmente se necesita root; es mas facil cambiar la fecha en
-Ajustes > Sistema > Fecha y hora.
+En un dispositivo físico normalmente se necesita acceso root; puedes cambiar la fecha desde
+**Ajustes > Sistema > Fecha y hora**.
 
-### Audio de las temporadas (como cambiarlo)
-Cada temporada tiene su jingle en `assets/audio/` y se reproduce al elegirla:
+### Jingles de temporada
 
-| Archivo          | Temporada            | Fechas             |
-|------------------|----------------------|--------------------|
-| `normal.wav`     | Normal               | resto del ano      |
-| `halloween.wav`  | Halloween            | 21 oct - 2 nov     |
-| `christmas.wav`  | Navidad              | 15 dic - 6 ene     |
-| `valentine.wav`  | San Valentin         | 4 feb - 15 feb     |
+Los jingles se encuentran en `assets/audio/`:
 
-Los cuatro jingles actuales son **originales**: los sintetiza
-`tool/generate_season_audio.py` (Python puro, sin dependencias ni licencias de terceros).
-Para regenerarlos o ajustar volumen/duracion:
+| Archivo | Temporada |
+| --- | --- |
+| `normal.wav` | Normal |
+| `halloween.wav` | Halloween |
+| `christmas.wav` | Navidad |
+| `valentine.wav` | San Valentín |
+
+Los audios actuales son originales y se pueden regenerar con Python, sin dependencias
+adicionales:
 
 ```powershell
 python tool/generate_season_audio.py
 ```
 
-Si prefieres musica real, descarga una pista **libre de regalias** y guardala con el mismo
-nombre (`normal.wav`, `halloween.wav`, `christmas.wav`, `valentine.wav`) y una duracion de
-3-7 s. Sitios con musica libre:
+Si reemplazas los jingles, conserva sus nombres y vuelve a compilar la aplicación. Si
+utilizas música de terceros, verifica su licencia y agrega los créditos correspondientes.
 
-- Pixabay Music: https://pixabay.com/music/ (Pixabay License, uso libre)
-- Mixkit: https://mixkit.co/free-stock-music/ (Mixkit License, uso libre)
-- Free Music Archive (filtro CC0): https://freemusicarchive.org/
-- Incompetech (Kevin MacLeod, CC BY): https://incompetech.com/music/royalty-free/
-- Freesound (filtro CC0): https://freesound.org/
+## Publicar la app en Appetize.io
 
-Si usas CC BY, agrega el credito del autor en este README. Despues de reemplazar los
-archivos hay que recompilar (`flutter run` / `flutter build`) porque los assets se
-empaquetan en el APK. La copia de los audios anteriores quedo en `tool/audio_original/`.
+[Appetize.io](https://appetize.io) permite compartir una demo de Android que se ejecuta en
+el navegador. Para publicar una versión:
 
-### Demo en linea con Appetize.io
-[Appetize.io](https://appetize.io) ejecuta el APK en un Android virtual dentro del
-navegador y da un enlace publico para compartir (util para entregar la practica).
+1. Crea una cuenta en [appetize.io/signup](https://appetize.io/signup).
+2. Desde la carpeta del proyecto TokTik, genera el APK de lanzamiento:
 
-1. Crear una cuenta gratis en https://appetize.io/signup.
-2. Compilar el APK de release:
+   ```powershell
+   flutter build apk --release
+   ```
 
-```powershell
-flutter build apk --release
-# queda en build\app\outputs\flutter-apk\app-release.apk
-```
+   El archivo se genera en `build\app\outputs\flutter-apk\app-release.apk`.
 
-3. Subirlo de cualquiera de estas dos formas:
-   - Web: https://appetize.io/upload (arrastrar el `.apk`, plataforma Android).
-   - Terminal (recomendado para re-subir cambios): generar un API token en
-     **Account -> API Tokens** y ejecutar
+3. Sube el APK desde [appetize.io/upload](https://appetize.io/upload), seleccionando
+   Android. También puedes usar el script incluido para subirlo desde PowerShell:
 
-```powershell
-$env:APPETIZE_API_TOKEN = "tu_token"
-.\tool\upload_to_appetize.ps1
-```
+   ```powershell
+   $env:APPETIZE_API_TOKEN = "tu_token"
+   .\tool\upload_to_appetize.ps1
+   ```
 
-El script imprime el enlace `https://appetize.io/app/<publicKey>`. Para actualizar la
-misma app (sin crear otra) se le pasa el codigo: `-PublicKey <publicKey>`.
+   El token se genera en **Account > API Tokens**. Mantenlo privado y no lo publiques en
+   este README ni en el repositorio.
 
-Notas:
+4. Copia el enlace público que proporciona Appetize y reemplaza el espacio de
+   [Demo interactiva en Appetize.io](https://appetize.io/app/b_rpg6l36vjfaqozqzpvkld7a6hq) al inicio de este
+   documento. Si vuelves a subir una versión, puedes actualizar la misma app pasando
+   `-PublicKey <publicKey>` al script.
 
-- Plan Free: 30 minutos de streaming al mes, 2 dispositivos simultaneos y sesiones de
-  3 minutos; alcanza para una demostracion corta.
-- El audio del jingle se escucha activando el icono del altavoz del visor.
-- El APK pesa ~82 MB. Los videos 5-8 (originalmente 4K y 266 MB) se recomprimieron a
-  720p (~16 MB en total); la copia original quedo en `tool/video_original/`.
-- La app necesita internet para YouTube/Dailymotion/Vimeo; el dispositivo de Appetize
-  si tiene salida a internet.
+Ten en cuenta que los videos de **For You** requieren internet. El HLS de Dailymotion no
+se reproduce en web; para probar ese contenido, utiliza Android o iOS. En Appetize, el
+audio del jingle puede requerir activar el altavoz del visor.
+
+## Créditos
+
+Práctica académica de la asignatura **Desarrollo Móvil Integral**. Los videos de la
+aplicación se usan como contenido de demostración; verifica que tienes permiso para
+redistribuir cualquier medio que agregues al repositorio o a la demo pública.
