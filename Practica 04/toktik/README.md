@@ -191,6 +191,12 @@ Ten en cuenta que los videos de **For You** requieren internet. El HLS de Dailym
 se reproduce en web; para probar ese contenido, utiliza Android o iOS. En Appetize, el
 audio del jingle puede requerir activar el altavoz del visor.
 
+
+## Diagrama de la app
+
+![Vista previa del diagrama](https://edwinhdzcm.github.io/Practicas_DMI_230425/Practica04/archify/toktik-providers.html)
+![Vista previa del diagrama](https://edwinhdzcm.github.io/Practicas_DMI_230425/Practica04/toktik-general.html)
+
 ## Créditos
 
 Práctica académica de la asignatura **Desarrollo Móvil Integral**. Los videos de la
