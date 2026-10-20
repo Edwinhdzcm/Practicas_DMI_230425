@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "running",
+  "type": "architecture",
+  "quality": "showcase",
+  "startedAt": "2026-10-20T22:05:37.109Z",
+  "specification": {
+    "path": "C:\\Users\\edwin\\Practicas_DMI_230425\\Practica 04\\archify\\arquitectura_toktik_providers.json",
+    "sha256": "8bdb9eb3832567a31515cac631ac3ccfce2b3fc059c24c5b33fe290e501608f7",
+    "bytes": 38507
+  },
+  "artifact": {
+    "path": "C:\\Users\\edwin\\Practicas_DMI_230425\\Practica 04\\archify\\arquitectura_toktik_providers.html",
+    "sha256": "a477bd3834892f9a19bfcd6c175182adab2c78dcd0db666101bfaf5ef2d6ab19",
+    "bytes": 773835
+  },
+  "stages": {
+    "validate": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": null,
+      "execution": "embedded-in-deliver",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\edwin\\.agents\\skills\\archify\\bin\\archify.mjs",
+        "deliver",
+        "architecture",
+        "C:\\Users\\edwin\\Practicas_DMI_230425\\Practica 04\\archify\\arquitectura_toktik_providers.json",
+        "C:\\Users\\edwin\\Practicas_DMI_230425\\Practica 04\\archify\\arquitectura_toktik_providers.html",
+        "--quality",
+        "showcase",
+        "--repo-root",
+        "C:\\Users\\edwin\\Practicas_DMI_230425",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": true,
+        "command": "validate",
+        "specification": {
+          "sha256": "8bdb9eb3832567a31515cac631ac3ccfce2b3fc059c24c5b33fe290e501608f7",
+          "bytes": 38507
+        },
+        "validation": {
+          "checksPassed": 9,
+          "checkCount": 9,
+          "compositionProfile": "showcase",
+          "compositionStatus": "pass",
+          "errors": 0,
+          "warnings": 0
+        }
+      }
+    },
+    "deliver": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": 1470,
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\edwin\\.agents\\skills\\archify\\bin\\archify.mjs",
+        "deliver",
+        "architecture",
+        "C:\\Users\\edwin\\Practicas_DMI_230425\\Practica 04\\archify\\arquitectura_toktik_providers.json",
+        "C:\\Users\\edwin\\Practicas_DMI_230425\\Practica 04\\archify\\arquitectura_toktik_providers.html",
+        "--quality",
+        "showcase",
+        "--repo-root",
+        "C:\\Users\\edwin\\Practicas_DMI_230425",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "receiptId": "c4b8feec-9dfe-4843-935d-e3372bdfd47a",
+        "ok": true,
+        "command": "deliver",
+        "type": "architecture",
+        "input": "C:\\Users\\edwin\\Practicas_DMI_230425\\Practica 04\\archify\\arquitectura_toktik_providers.json",
+        "output": "C:\\Users\\edwin\\Practicas_DMI_230425\\Practica 04\\archify\\arquitectura_toktik_providers.html",
+        "specification": {
+          "sha256": "8bdb9eb3832567a31515cac631ac3ccfce2b3fc059c24c5b33fe290e501608f7",
+          "bytes": 38507
+        },
+        "artifact": {
+          "sha256": "a477bd3834892f9a19bfcd6c175182adab2c78dcd0db666101bfaf5ef2d6ab19",
+          "bytes": 773835
+        },
+        "validation": {
+          "checksPassed": 9,
+          "checkCount": 9,
+          "compositionProfile": "showcase",
+          "compositionStatus": "pass",
+          "errors": 0,
+          "warnings": 0
+        },
+        "evidence": {
+          "verified": true,
+          "repository": "https://github.com/Edwinhdzcm/Practicas_DMI_230425",
+          "revision": "df87e2415dc16acd962f1c1b3a5a1df0e010ec07",
+          "references": 12
+        },
+        "update": {
+          "status": "unavailable",
+          "installedVersion": null,
+          "availableVersion": null,
+          "releaseNotes": null,
+          "checkedAt": null,
+          "source": null,
+          "noticeRequired": false,
+          "noticeText": null,
+          "reason": "disabled"
+        }
+      }
+    },
+    "check": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": 298,
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\edwin\\.agents\\skills\\archify\\bin\\archify.mjs",
+        "check",
+        "C:\\Users\\edwin\\Practicas_DMI_230425\\Practica 04\\archify\\arquitectura_toktik_providers.html",
+        "--require-provenance"
+      ],
+      "receipt": {
+        "ok": true,
+        "file": "C:\\Users\\edwin\\Practicas_DMI_230425\\Practica 04\\archify\\arquitectura_toktik_providers.html",
+        "artifact": {
+          "sha256": "a477bd3834892f9a19bfcd6c175182adab2c78dcd0db666101bfaf5ef2d6ab19",
+          "bytes": 773835
+        },
+        "checks": [
+          {
+            "name": "single_svg",
+            "ok": true,
+            "details": [
+              "found 1 <svg> block(s)"
+            ]
+          },
+          {
+            "name": "finite_svg",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "orthogonal_arrows",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "label_route_clearance",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "relationship_crossings",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "relationship_corridors",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "container_border_runs",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "route_rhythm",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "legend_clearance",
+            "ok": true,
+            "details": []
+          }
+        ],
+        "composition": {
+          "schemaVersion": 1,
+          "profile": "showcase",
+          "status": "pass",
+          "summary": {
+            "errors": 0,
+            "warnings": 0
+          },
+          "metrics": {
+            "properCrossings": 0,
+            "resolvedCrossovers": 0,
+            "ambiguousCorridors": 0,
+            "arrowheadCollisions": 0,
+            "containerBorderRuns": 0,
+            "labelRouteClearanceIssues": 0,
+            "labelCanvasOverflowIssues": 0,
+            "minLabelRouteClearance": 12.1,
+            "desktopReadabilityIssues": 0,
+            "viewportHeightIssues": 0,
+            "minProjectedNodeTextPx": 7.5,
+            "maxBends": 2,
+            "routesOverSuggestedBends": 0,
+            "maxStretch": 1,
+            "routesOverSuggestedStretch": 0,
+            "minSegmentPx": 47.5,
+            "minInteriorSegmentPx": 77.5,
+            "shortSegmentCount": 0,
+            "shortEndpointSegmentCount": 0,
+            "shortInteriorSegmentCount": 0,
+            "microSegmentCount": 0
+          },
+          "suggestedLimits": {
+            "bendsPerRelationship": 2,
+            "stretch": 1.35,
+            "segmentPx": 16,
+            "microSegmentPx": 8
+          },
+          "routeReview": {
+            "crossings": [],
+            "detours": []
+          },
+          "leadingSpace": {
+            "measured": true,
+            "emptyTopPx": 116,
+            "emptyTopRatio": 0.173,
+            "occupiedTop": 116,
+            "viewBoxTop": 0,
+            "canvasHeight": 672,
+            "typicalNodeHeight": 64,
+            "reviewSuggested": false
+          },
+          "desktopReadability": {
+            "budgetBasis": "recognized-declared-wide",
+            "readerContract": "declared-wide-v1",
+            "availableDiagramWidth": 1305.9375,
+            "actualBudgetPx": 1305.9375,
+            "actualReaderWidth": 1335.9375,
+            "desiredReaderWidth": 1335.9375,
+            "viewportCap": 1376,
+            "limit": "source-size",
+            "requestedTargetPx": 7.5,
+            "requestedTargetMet": true,
+            "hardFloorPx": 6,
+            "hardFloorMet": true,
+            "minimumOwner": {
+              "kind": "edge",
+              "id": "renderiza",
+              "from": "home",
+              "to": "feed"
+            },
+            "minimumSourceTextPx": 8,
+            "minimumProjectedTextPx": 7.5,
+            "semanticTextCount": 33
+          },
+          "issues": []
+        },
+        "provenance": "current",
+        "deliveryReceiptId": "c4b8feec-9dfe-4843-935d-e3372bdfd47a"
+      }
+    }
+  },
+  "diagnostics": [],
+  "evidence": {
+    "receipt": "C:\\Users\\edwin\\Practicas_DMI_230425\\Practica 04\\archify\\arquitectura_toktik_providers.finalize.json",
+    "summaryReceipt": "C:\\Users\\edwin\\Practicas_DMI_230425\\Practica 04\\archify\\arquitectura_toktik_providers.finalize-summary.json"
+  },
+  "visualReview": "not-requested"
+}
