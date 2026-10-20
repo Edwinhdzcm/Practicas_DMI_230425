@@ -95,21 +95,6 @@ contenido y probar la reproducción:
 - ⬇️ [Abrir o descargar video de prueba 1](../videos/1.mp4)
 - ⬇️ [Abrir o descargar video de prueba 2](../videos/2.mp4)
 
-> **Por qué no se reproducen dentro del README:** GitHub no reproduce archivos de video en
-> el visor del repositorio ni admite etiquetas `<video>` en Markdown; en su lugar muestra un
-> botón de descarga. Por eso la reproducción se hace con **GitHub Pages** (primer enlace),
-> que entrega los `.mp4` como `video/mp4` y los abre en el reproductor del navegador.
-> Si quieres un reproductor incrustado en el propio README, sube los videos a YouTube o
-> Google Drive y pega ese enlace.
->
-> Estos dos videos viven en `Practica 04/videos/` y **no** son los que usa la aplicación:
-> el feed **Discover** lee los archivos de `toktik/assets/videos/`, que no se suben al
-> repositorio por su tamaño.
-
-
-
-
-
 
 ## Temas por temporada
 
