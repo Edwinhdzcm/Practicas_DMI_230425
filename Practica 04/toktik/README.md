@@ -91,13 +91,11 @@ flutter run
 Los siguientes videos se incluyen como **material de prueba** para mostrar ejemplos de
 contenido y probar la reproducción:
 
-#### Video de prueba 1
+- [Abrir o descargar video de prueba 1](../videos/1.mp4)
+- [Abrir o descargar video de prueba 2](../videos/2.mp4)
 
-[Abrir o descargar video de prueba 1](Practica04/videos/1.mp4)
 
-#### Video de prueba 2
 
-[Abrir o descargar video de prueba 2](Practica04/videos/2.mp4)
 
 
 
