@@ -5,7 +5,7 @@
   "status": "pass",
   "type": "architecture",
   "quality": "showcase",
-  "startedAt": "2026-10-20T22:04:19.828Z",
+  "startedAt": "2026-10-20T22:07:41.213Z",
   "specification": {
     "path": "C:\\Users\\edwin\\Practicas_DMI_230425\\Practica 04\\archify\\arquitectura_toktik_datasources.json",
     "sha256": "785d93ec9920b1ec003550618bc5297d63f16e155822ad6b30c699ecd20fc81a",
@@ -56,7 +56,7 @@
     "deliver": {
       "status": "pass",
       "exitCode": 0,
-      "durationMs": 2068,
+      "durationMs": 1511,
       "command": [
         "C:\\Program Files\\nodejs\\node.exe",
         "C:\\Users\\edwin\\.agents\\skills\\archify\\bin\\archify.mjs",
@@ -72,7 +72,7 @@
       ],
       "receipt": {
         "schemaVersion": 1,
-        "receiptId": "d0ff0d6d-5f53-48ad-88f0-dd17178759b4",
+        "receiptId": "7c0c2471-f01b-494b-9ab9-d644f4b547cc",
         "ok": true,
         "command": "deliver",
         "type": "architecture",
@@ -116,7 +116,7 @@
     "check": {
       "status": "pass",
       "exitCode": 0,
-      "durationMs": 378,
+      "durationMs": 307,
       "command": [
         "C:\\Program Files\\nodejs\\node.exe",
         "C:\\Users\\edwin\\.agents\\skills\\archify\\bin\\archify.mjs",
@@ -278,20 +278,22 @@
           "issues": []
         },
         "provenance": "current",
-        "deliveryReceiptId": "d0ff0d6d-5f53-48ad-88f0-dd17178759b4"
+        "deliveryReceiptId": "7c0c2471-f01b-494b-9ab9-d644f4b547cc"
       }
     },
     "browser-check": {
       "status": "pass",
       "exitCode": 0,
-      "durationMs": 3289,
+      "durationMs": 2943,
       "command": [
         "C:\\Program Files\\nodejs\\node.exe",
         "C:\\Users\\edwin\\.agents\\skills\\archify\\bin\\archify.mjs",
         "browser-check",
         "C:\\Users\\edwin\\Practicas_DMI_230425\\Practica 04\\archify\\arquitectura_toktik_datasources.html",
         "--json",
-        "--require-provenance"
+        "--require-provenance",
+        "--out-dir",
+        "C:\\Users\\edwin\\Practicas_DMI_230425\\Practica 04\\archify"
       ],
       "execution": "in-process",
       "receipt": {
@@ -302,7 +304,7 @@
         "status": "pass",
         "visualReview": "not-requested",
         "provenance": "current",
-        "deliveryReceiptId": "d0ff0d6d-5f53-48ad-88f0-dd17178759b4",
+        "deliveryReceiptId": "7c0c2471-f01b-494b-9ab9-d644f4b547cc",
         "artifact": {
           "path": "C:\\Users\\edwin\\Practicas_DMI_230425\\Practica 04\\archify\\arquitectura_toktik_datasources.html",
           "sha256": "ae475aec93a9575a4071b597f23d2ea13561c149f685aae9427737ab0c9771c0",
@@ -1024,8 +1026,8 @@
     "browserCheckReceipt": "C:\\Users\\edwin\\Practicas_DMI_230425\\Practica 04\\archify\\arquitectura_toktik_datasources.browser-check.json"
   },
   "visualReview": "not-requested",
-  "finishedAt": "2026-10-20T22:04:26.894Z",
-  "durationMs": 7065,
+  "finishedAt": "2026-10-20T22:07:47.189Z",
+  "durationMs": 5975,
   "update": {
     "status": "update_available",
     "installedVersion": "3.0.1",
