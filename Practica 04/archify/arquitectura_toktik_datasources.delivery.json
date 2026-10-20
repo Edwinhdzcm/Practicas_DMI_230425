@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "7c0c2471-f01b-494b-9ab9-d644f4b547cc",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "C:\\Users\\edwin\\Practicas_DMI_230425\\Practica 04\\archify\\arquitectura_toktik_datasources.json",
+  "output": "C:\\Users\\edwin\\Practicas_DMI_230425\\Practica 04\\archify\\arquitectura_toktik_datasources.html",
+  "specification": {
+    "sha256": "785d93ec9920b1ec003550618bc5297d63f16e155822ad6b30c699ecd20fc81a",
+    "bytes": 39562
+  },
+  "artifact": {
+    "sha256": "ae475aec93a9575a4071b597f23d2ea13561c149f685aae9427737ab0c9771c0",
+    "bytes": 775226
+  }
+}
