@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:toktik/config/helpers/video_source_resolver.dart';
+import 'package:provider/provider.dart';
+import 'package:toktik/config/theme/season_theme.dart';
 import 'package:toktik/domain/entities/video_post.dart';
+import 'package:toktik/presentation/providers/playback_provider.dart';
+import 'package:toktik/presentation/providers/theme_provider.dart';
+import 'package:toktik/presentation/providers/views_provider.dart';
 import 'package:toktik/presentation/widgets/video/video_background.dart';
 import 'package:video_player/video_player.dart';
 
 class FullScreenPlayer extends StatefulWidget {
   final VideoPost video;
-  final bool isMuted;
+
+  /// Solo el video activo (visible) se reproduce.
+  final bool isActive;
 
   const FullScreenPlayer({
     super.key,
     required this.video,
-    required this.isMuted,
+    required this.isActive,
   });
 
   @override
@@ -20,43 +26,86 @@ class FullScreenPlayer extends StatefulWidget {
 
 class _FullScreenPlayerState extends State<FullScreenPlayer> {
   VideoPlayerController? _controller;
-  late final Future<void> _initFuture;
-
-  /// true cuando el usuario pausó el video con un tap (muestra el ícono central)
-  bool _userPaused = false;
+  bool _ready = false;
+  bool _hasError = false;
+  bool _pausedByUser = false;
+  bool _muted = false;
 
   @override
   void initState() {
     super.initState();
-    // Se inicializa UNA sola vez (antes se llamaba initialize() en cada build)
-    _initFuture = _setupController();
+    _initController();
   }
 
-  Future<void> _setupController() async {
-    final controller = await VideoSourceResolver.createController(widget.video);
-
-    if (!mounted) {
-      await controller.dispose();
-      return;
-    }
-
+  Future<void> _initController() async {
+    final video = widget.video;
+    final controller = video.isLocal
+        ? VideoPlayerController.asset(video.videoUrl)
+        : VideoPlayerController.network(video.videoUrl);
     _controller = controller;
-    await controller.initialize();
 
-    if (!mounted) return;
-    await controller.setLooping(true);
-    await controller.setVolume(widget.isMuted ? 0 : 1);
-    await controller.play();
+    try {
+      await controller.initialize();
+      if (!mounted) return;
+      await controller.setLooping(true);
+      await controller.setVolume(_muted ? 0 : 1);
+      setState(() => _ready = true);
+      _syncPlayback();
+      _maybeCountView();
+    } catch (_) {
+      if (mounted) setState(() => _hasError = true);
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Se vuelve a ejecutar cada vez que cambia el mute global.
+    _muted = Provider.of<PlaybackProvider>(context).isMuted;
+    if (_ready) _controller?.setVolume(_muted ? 0 : 1);
   }
 
   @override
   void didUpdateWidget(covariant FullScreenPlayer oldWidget) {
     super.didUpdateWidget(oldWidget);
-
-    // El botón de mute cambió
-    if (oldWidget.isMuted != widget.isMuted) {
-      _controller?.setVolume(widget.isMuted ? 0 : 1);
+    if (oldWidget.isActive != widget.isActive) {
+      _pausedByUser = false;
+      _syncPlayback();
+      _maybeCountView();
     }
+  }
+
+  /// Suma +1 cuando este video empieza a verse (ya listo y activo).
+  /// Se hace en postFrame para no notificar durante el build.
+  void _maybeCountView() {
+    if (!_ready || !widget.isActive || !mounted) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || !_ready || !widget.isActive) return;
+      try {
+        context.read<ViewsProvider>().registerView(widget.video);
+      } catch (_) {
+        // provider aún no disponible: se contará en la próxima activación
+      }
+    });
+  }
+
+  void _syncPlayback() {
+    final controller = _controller;
+    if (!_ready || controller == null) return;
+
+    if (widget.isActive && !_pausedByUser) {
+      controller.play();
+    } else {
+      controller.pause();
+    }
+  }
+
+  void _togglePlay() {
+    final controller = _controller;
+    if (!_ready || controller == null) return;
+
+    setState(() => _pausedByUser = controller.value.isPlaying);
+    _syncPlayback();
   }
 
   @override
@@ -67,128 +116,73 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<void>(
-      future: _initFuture,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return _VideoError(caption: widget.video.caption);
-        }
+    final SeasonTheme theme = context.watch<ThemeProvider>().theme;
 
-        if (snapshot.connectionState != ConnectionState.done ||
-            _controller == null ||
-            !_controller!.value.isInitialized) {
-          return const Center(child: CircularProgressIndicator(strokeWidth: 2));
-        }
+    if (_hasError) {
+      return const _VideoError();
+    }
 
-        final controller = _controller!;
-        final size = controller.value.size;
-        final isVertical = controller.value.aspectRatio < 1;
+    final controller = _controller;
+    if (!_ready || controller == null) {
+      return const Center(child: CircularProgressIndicator(strokeWidth: 2));
+    }
 
-        return GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            if (controller.value.isPlaying) {
-              controller.pause();
-              setState(() => _userPaused = true);
-              return;
-            }
-            controller.play();
-            setState(() => _userPaused = false);
-          },
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              // Vertical: llena la pantalla. Horizontal: se ve completo.
-              FittedBox(
-                fit: isVertical ? BoxFit.cover : BoxFit.contain,
-                child: SizedBox(
-                  width: size.width,
-                  height: size.height,
-                  child: VideoPlayer(controller),
-                ),
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: _togglePlay,
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          // Video a pantalla completa (recortado, sin deformarse)
+          ClipRect(
+            child: FittedBox(
+              fit: BoxFit.cover,
+              child: SizedBox(
+                width: controller.value.size.width,
+                height: controller.value.size.height,
+                child: VideoPlayer(controller),
               ),
-
-              // Gradiente
-              VideoBackground(stops: [0.8, 1.0]),
-
-              // Ícono central al pausar (estilo TikTok)
-              Center(
-                child: IgnorePointer(
-                  child: AnimatedOpacity(
-                    opacity: _userPaused ? 1 : 0,
-                    duration: const Duration(milliseconds: 200),
-                    child: AnimatedScale(
-                      scale: _userPaused ? 1 : 1.4,
-                      duration: const Duration(milliseconds: 200),
-                      child: const Icon(
-                        Icons.play_arrow_rounded,
-                        size: 100,
-                        color: Colors.white70,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-
-              // Texto
-              Positioned(
-                bottom: 50,
-                left: 20,
-                child: _VideoCaption(caption: widget.video.caption),
-              ),
-            ],
+            ),
           ),
-        );
-      },
-    );
-  }
-}
 
-class _VideoCaption extends StatelessWidget {
-  final String caption;
+          // Gradiente inferior con el color de la temporada
+          VideoBackground(
+            colors: [Colors.transparent, theme.gradientEnd],
+            stops: const [0.6, 1.0],
+          ),
 
-  const _VideoCaption({required this.caption});
-
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final titleStyle = Theme.of(context).textTheme.titleLarge;
-
-    return SizedBox(
-      width: size.width * 0.6,
-      child: Text(
-        caption,
-        maxLines: 2,
-        overflow: TextOverflow.ellipsis,
-        style: titleStyle,
+          // Icono de pausa al centro
+          Center(
+            child: AnimatedOpacity(
+              opacity: _pausedByUser ? 1 : 0,
+              duration: const Duration(milliseconds: 200),
+              child: const Icon(
+                Icons.play_arrow_rounded,
+                size: 96,
+                color: Colors.white70,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
 class _VideoError extends StatelessWidget {
-  final String caption;
-
-  const _VideoError({required this.caption});
+  const _VideoError();
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(Icons.error_outline, size: 40),
-            const SizedBox(height: 12),
-            Text(
-              'No se pudo reproducir este video',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: 4),
-            Text(caption, maxLines: 2, overflow: TextOverflow.ellipsis),
-          ],
-        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: const [
+          Icon(Icons.error_outline, size: 48, color: Colors.white54),
+          SizedBox(height: 8),
+          Text('No se pudo reproducir este video',
+              style: TextStyle(color: Colors.white54)),
+        ],
       ),
     );
   }
