@@ -32,6 +32,7 @@ class MovieDbResponse {
         "total_results": totalResults,
     };
 }
+
 class Dates {
     Dates({
         required this.maximum,

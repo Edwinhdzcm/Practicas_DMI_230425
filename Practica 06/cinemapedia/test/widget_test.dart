@@ -1,30 +1,61 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:cinemapedia/domain/entities/movie.dart';
+import 'package:cinemapedia/domain/repositories/movie_repository.dart';
 import 'package:cinemapedia/main.dart';
+import 'package:cinemapedia/presentation/providers/providers.dart';
+
+class _FakeMovieRepository implements MovieRepository {
+  @override
+  Future<List<Movie>> getNowPlaying({int page = 1}) async => [];
+
+  @override
+  Future<List<Movie>> getPopular({int page = 1}) async => [];
+
+  @override
+  Future<List<Movie>> getUpcoming({int page = 1}) async => [];
+
+  @override
+  Future<List<Movie>> getTopRated({int page = 1}) async => [];
+
+  @override
+  Future<Movie> getMovieById(String id) async => Movie(
+        adult: false,
+        backdropPath: '',
+        genreIds: const [],
+        id: 0,
+        originalLanguage: 'es',
+        originalTitle: 'Test',
+        overview: '',
+        popularity: 0,
+        posterPath: '',
+        releaseDate: DateTime(2026),
+        title: 'Test',
+        video: false,
+        voteAverage: 0,
+        voteCount: 0,
+      );
+
+  @override
+  Future<List<Movie>> searchMovies(String query) async => [];
+}
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('La app arranca sin errores', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          movieRepositoryProvider.overrideWithValue(_FakeMovieRepository()),
+        ],
+        child: const MainApp(),
+      ),
+    );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
     await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.byType(MaterialApp), findsOneWidget);
   });
 }
