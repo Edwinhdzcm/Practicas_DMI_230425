@@ -35,9 +35,8 @@ Las capturas están organizadas en filas de tres:
 
 ### Diagramas publicados en GitHub Pages
 
-[Abrir diagrama interactivo General](https://edwinhdzcm.github.io/Practicas_DMI_230425/Practica%2002/archify/practica05-widgets-20261028-232158/practica05-general.html)
-
-[Abrir diagrama interactivo Especifico](https://edwinhdzcm.github.io/Practicas_DMI_230425/Practica%2005/archify/practica05-widgets-20261028-232158/practica05-especifico.html)
+- [ Abrir diagrama general](https://edwinhdzcm.github.io/Practicas_DMI_230425/Practica%2005/archify/practica05-widgets-20261028-232158/practica05-general.html)
+- [ Abrir diagrama específico](https://edwinhdzcm.github.io/Practicas_DMI_230425/Practica%2005/archify/practica05-widgets-20261028-232158/practica05-especifico.html)
 
 
 ### Demo interactiva en Appetize.io

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "00d60152-7cb1-4fed-98b1-f2132901c544",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "C:\\Users\\edwin\\Practicas_DMI_230425\\.archify\\practica05-widgets-20261028-232158\\practica05-general.json",
+  "output": "C:\\Users\\edwin\\Practicas_DMI_230425\\.archify\\practica05-widgets-20261028-232158\\practica05-general.html",
+  "specification": {
+    "sha256": "cddbe184d021cdbd4f63960b66961f3080d8550a55a610515edd2bada2d81059",
+    "bytes": 41434
+  },
+  "artifact": {
+    "sha256": "ff49563fee324aa61b55273e7f7069a8d7e95d565cc2b5c522ae373b3069f676",
+    "bytes": 778842
+  }
+}
